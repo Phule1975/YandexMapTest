@@ -4,6 +4,20 @@ const init = () => {
         zoom: 14
     });
 
+    const addPoint = (point) => {
+        myGeoObject = new ymaps.GeoObject({
+            geometry: {
+                type:"Point",
+                coordinates: point
+            }
+        },
+        {
+            preset: 'islands#redIcon'
+        });
+
+        myMap.geoObjects.add(myGeoObject);
+    };
+
     const onMapClick = (event) => {
         var coords = event.get('coords');
         myMap.balloon.open(coords, {
@@ -15,6 +29,8 @@ const init = () => {
                 ].join(', ') + '</p>',
             contentFooter:'<sup>Щелкните еще раз</sup>'
         });
+
+        addPoint(coords);
         //console.log(event.target);
     };
 
@@ -22,3 +38,5 @@ const init = () => {
 
 };
 ymaps.ready(init);
+
+// Размещение геообъекта на карте.
